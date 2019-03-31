@@ -1,0 +1,34 @@
+
+.am-navbar{
+  background-image: url("./statics/161118Cardamomo\ Esp728x90px.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  /* background-position-x:
+  background-position-y: */
+}
+
+.am-card-header-content{
+ color: black;
+ font-weight: bold;
+}
+
+#card-image {
+  background-image: url("./statics/Kelian.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.am-wingblank {
+  margin-top: 0px;
+  margin-left: 0px;
+  margin-right: 0px
+}
+
+#down-card{
+  margin-top: -22px;
+}
+body{
+  height: 100%;
+}
+
+/* color corporativo: #ED3833 */

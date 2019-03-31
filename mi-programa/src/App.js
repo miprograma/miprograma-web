@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { NavBar, Icon } from "antd-mobile";
 import { Switch, Route, Redirect } from "react-router-dom";
+import Board from "./components/Board"
 
 class App extends Component {
   render() {
@@ -9,14 +10,10 @@ class App extends Component {
       <div className="App">
         <NavBar
           mode="light"
-          icon={<Icon type="left" />}
-          onLeftClick={() => console.log("onLeftClick")}
-          rightContent={[<Icon key="1" type="ellipsis" />]}
-        >
-          Cardamomo Programa
+          rightContent={[<Icon key="1" type="ellipsis" />]}>
         </NavBar>
         <Switch>
-          {/* <Route exact path="/active-performance" component = { ActivePerformance }/> */}
+          <Route exact path="/active-performance" component = { Board }/>
         </Switch>
 
       </div>
