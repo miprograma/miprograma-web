@@ -4,12 +4,16 @@ import { StickyContainer, Sticky } from 'react-sticky';
 import { Tabs, Badge } from 'antd-mobile';
 
 
-const ActivePerformance = () => {
+const ActivePerformance = (props) => {
   const tabs = [
     { title: 'Próximo Artista' },
     { title: 'Actuación' },
     { title: 'Biografía' },
   ];
+
+  const show = props.shows;
+  console.log(show)
+
   return(
     <React.Fragment>
 <WingBlank size="full" >
@@ -21,7 +25,7 @@ const ActivePerformance = () => {
         extra={<span>Próximo número</span>}
       />
       <Card.Body >
-        <div>Bailaor de la compañía nacional</div>
+        <div>{show.title}</div>
       </Card.Body>
       <Card.Footer content="Artista especial" extra={<div>Soleá por Bulerías</div>} />
     </Card>

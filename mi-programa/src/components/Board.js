@@ -1,29 +1,32 @@
 import React, { Component } from "react";
 import miPrograma from "../services/MiPrograma";
 // import { activeArtist } from;
-import ArtistCard from "./shows/ActivePerformance";
+import ActivePerformance from "./shows/ActivePerformance";
 
 export default class Board extends Component {
   state = {
-    artist: [],
+    shows: [],
     performance: []
   };
+
+  componentDidMount() {
+    this.fetchActivePerformance();
+  }
+
   fetchActivePerformance = () => {
-    miPrograma.getActivePerformance().then((artist, performance) => {
-      this.setState({ artist: artist, performance: performance });
+    miPrograma.getActivePerformance()
+      .then(shows => { 
+        this.setState({ shows: shows[0] })
     });
-  };//<------- Me quedo aquí que no puedo más por hoy. Lo dejo en domingo.
-  
-  //   // miProgramaService con el get ActiveShows
-  // }
+  };
 
-  // componentDidMount(){
-  //   this.fetchActiveShow();
-  // }
 
-  render = () => (
-    <div className="Board">
-      <ArtistCard />
+  render() {
+    const {shows} = this.state;
+    return (
+      <div className="Board">
+      <ActivePerformance shows={shows} />
     </div>
-  );
+    );
+  }
 }

@@ -1,6 +1,9 @@
 import http from './BaseServices';
 
-const getActivePerformance = () => { http.get('/active-performance').then (response => response.data) };
+const getActivePerformance = () => (
+  http.get('/shows')
+    .then(response => response.data)
+)
 
 const createArtist = (show) => { http.post('/shows', show)} //<-- ¿Será Show lo que le pase?
 
