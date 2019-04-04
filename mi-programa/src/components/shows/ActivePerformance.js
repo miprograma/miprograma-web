@@ -14,9 +14,7 @@ const ActivePerformance = (props) => {
   
   const show = props.show;
   const data = show.date
-  if (show.show) {
- console.log(show.show)
-  }
+
   const convertDate = date => {
     const convertedDate = new Date(date);
     return (convertedDate.getDate()+'-' + (convertedDate.getMonth()+1) + '-'+convertedDate.getFullYear())

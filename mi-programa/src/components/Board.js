@@ -7,8 +7,7 @@ import ActivePerformance from "./shows/ActivePerformance";
 export default class Board extends Component {
   state = {
     show: [],
-    performance: [],
-    nextShow: 0
+    performance: []
   };
 
   componentDidMount() {
@@ -27,7 +26,7 @@ export default class Board extends Component {
     const {show} = this.state;
     return (
       <div className="Board">
-      <ActivePerformance show={show} />
+      <ActivePerformance show = {show} />
     </div>
     );
   }

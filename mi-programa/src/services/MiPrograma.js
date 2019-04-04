@@ -5,6 +5,20 @@ const getActivePerformance = () => (
     .then(response => response.data)
 )
 
+const getArtistsList = () => (
+  http.get('/artists')
+    .then(response => response.data)
+  ) 
+const getPerformanceList = () => (
+  http.get('/performances')
+    .then(response => response.data)
+  ) 
+
+
+
+
+
+
 const createArtist = (show) => { http.post('/shows', show)} //<-- ¿Será Show lo que le pase?
 
 const deleteArtist= (id) => { http.delete('/shows', id)} //<-- ¿Será id lo que le pase?
@@ -23,13 +37,12 @@ const createShow = (show) => { http.post('/shows', show)} //<-- ¿Será Show lo 
 
 const deleteShow = (id) => { http.delete('/shows', id)} //<-- ¿Será id lo que le pase?
 
-const getArtistsList = (id) => { http.get('/shows', id)} //<-- ¿Será id lo que le pase?
-
 const getShowsList = (id) => { http.get('/shows', id)} //<-- ¿Será id lo que le pase?
 
 
 export default {
   getActivePerformance,
+  getPerformanceList,
   createShow,
   deleteShow,
   updateShow,
