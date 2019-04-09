@@ -37,11 +37,25 @@ body{
 
 .dropdown{
   width: 49%;
-  margin-top: 10px
+  margin-top: 25px
 }
 
 .dropdown button{
   width: 100%;
+}
+
+.react-calendar{
+  margin: 20px 100px;
+}
+.calend-session{
+  display: flex;
+  width: 49%;
+}
+.box-controller{
+  display: flex;
+  justify-content: space-around;
+  margin:30px;
+  width: 50%;
 }
 
 

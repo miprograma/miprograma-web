@@ -1,33 +1,32 @@
 import React, { Component } from "react";
 import miPrograma from "../services/MiPrograma";
-// import { activeArtist } from;
 import ActivePerformance from "./shows/ActivePerformance";
 
-
 export default class Board extends Component {
+  
   state = {
-    show: [],
+    show: null,
     performance: []
-  };
+  }
+  
 
   componentDidMount() {
     this.fetchActivePerformance();
   }
-  
+
   fetchActivePerformance = () => {
     miPrograma.getActivePerformance()
-      .then(shows => { 
-        this.setState({ show: shows[0] })
-    });
-  };
-
+      .then(data => {
+        this.setState({ show: data })
+      })
+  }
 
   render() {
-    const {show} = this.state;
+    const { show } = this.state;
     return (
-      <div className="Board">
-      <ActivePerformance show = {show} />
-    </div>
-    );
+      <div className = "Board">
+        <ActivePerformance show={show} />
+      </div>
+    )
   }
 }
