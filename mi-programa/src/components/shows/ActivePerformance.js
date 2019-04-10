@@ -40,8 +40,6 @@ const ActivePerformance = props => {
       </React.Fragment>
     );
   }
-  
-  const data = show.date;
 
   return (
     <React.Fragment>
@@ -57,7 +55,6 @@ const ActivePerformance = props => {
           </Card.Body>
           <Card.Footer
             content={"Artista especial"}
-            // extra={<div>{convertDate(data)}</div>}
           />
         </Card>
         <WhiteSpace size="lg" />

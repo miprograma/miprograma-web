@@ -3,8 +3,6 @@
   background-image: url("./statics/161118Cardamomo\ Esp728x90px.jpg");
   background-size: 100%;
   background-repeat: no-repeat;
-  /* background-position-x:
-  background-position-y: */
 }
 
 .am-card-header-content{
@@ -42,6 +40,8 @@ body{
 
 .dropdown button{
   width: 100%;
+  background-color: #333333;
+  border-color: #9c9c9c9c;
 }
 
 .react-calendar{
@@ -49,15 +49,18 @@ body{
 }
 .calend-session{
   display: flex;
-  width: 49%;
+  width: 100%;
 }
 .box-controller{
   display: flex;
   justify-content: space-around;
   margin:30px;
-  width: 50%;
+  width: 50%
+}
+.cards{
+  margin: 20px;
+  width: 50%
 }
 
 
-
-/* color corporativo: #ED3833 */
+/* color corporativo Cardamomo: #ED3833 */

@@ -1,7 +1,7 @@
 import React from "react";
-import Dropdown from "react-bootstrap/Dropdown";
 import { Icon } from "antd-mobile";
 import Calendar from "../calendar/calendar";
+import Form from "react-bootstrap/Form";
 
 const ArtistPerformance = props => {
   const artists = props.artists;
@@ -18,52 +18,43 @@ const ArtistPerformance = props => {
   return (
     <React.Fragment>
       <div className="calend-session">
-      <Calendar />
-      <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
-          Sesión
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu>
-          <Dropdown.Item href="#/action-1">1</Dropdown.Item>
-          <Dropdown.Item href="#/action-2">2</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">3</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">4</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+        <Calendar />
+        <Form.Group controlId="exampleForm.ControlSelect1">
+    <Form.Label>Sesión</Form.Label>
+    <Form.Control as="select">
+      <option>0</option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </Form.Control>
+  </Form.Group>
       </div>
-      
-      <div className="drops">
-        <Dropdown>
-          <Dropdown.Toggle variant="success" id="dropdown-basic" size="lg">
-            Artista
-          </Dropdown.Toggle>
 
-          <Dropdown.Menu style={{ width: "100%", marginTop: 10 }}>
+      <div className="cards">
+        <Form.Group controlId="exampleForm.ControlSelect1">
+          <Form.Control as="select">
             {artists.map((artist, index) => {
               return (
-                <Dropdown.Item key={index} >
+                <option key={index} >
                   {artist.name}
-                </Dropdown.Item>
+                </option>
               );
             })}
-          </Dropdown.Menu>
-        </Dropdown>
-        <Dropdown>
-          <Dropdown.Toggle variant="success" id="dropdown-basic" size="lg">
-            Performance
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu style={{ width: "100%", marginTop: 10 }}>
+          </Form.Control>
+        </Form.Group>
+        <Form.Group controlId="exampleForm.ControlSelect1">
+          <Form.Control as="select">
             {performances.map((performance, index) => {
               return (
-                <Dropdown.Item key={index} href="#/action-1">
+                <option key={index} >
                   {performance.title}
-                </Dropdown.Item>
+                </option>
               );
             })}
-          </Dropdown.Menu>
-        </Dropdown>
+          </Form.Control>
+        </Form.Group>
       </div>
     </React.Fragment>
   );
