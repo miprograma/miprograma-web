@@ -1,19 +1,19 @@
 import React from "react";
 import { Card, WingBlank, WhiteSpace } from "antd-mobile";
-import { StickyContainer, Sticky } from "react-sticky";
-import { Tabs, Badge } from "antd-mobile";
+import { StickyContainer } from "react-sticky";
+import { Tabs } from "antd-mobile";
 import { Icon } from "antd-mobile";
 
-const convertDate = date => {
-  const convertedDate = new Date(date);
-  return (
-    convertedDate.getDate() +
-    "-" +
-    (convertedDate.getMonth() + 1) +
-    "-" +
-    convertedDate.getFullYear()
-  );
-};
+// const convertDate = date => {
+//   const convertedDate = new Date(date);
+//   return (
+//     convertedDate.getDate() +
+//     "-" +
+//     (convertedDate.getMonth() + 1) +
+//     "-" +
+//     convertedDate.getFullYear()
+//   );
+// };
 
 const ActivePerformance = props => {
   const tabs = [

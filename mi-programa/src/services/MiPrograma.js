@@ -12,8 +12,19 @@ const updateShow = (showId, sessionId, blockList) =>
 
 const getArtistsList = () =>
   http.get("/artists").then(response => response.data);
+
+
 const getPerformanceList = () =>
   http.get("/performances").then(response => response.data);
+
+
+
+
+  
+
+const updateActivePerformance = (showId, sessionId, blockList) =>
+http.put('/shows/'+showId+'/sessions/'+sessionId, blockList).then(response => response.data);
+
 
 const createArtist = show => {
   http.post("/shows", show);
@@ -65,5 +76,6 @@ export default {
   deletePerformance,
   updatePerformance,
   getShow,
-  updateShow
+  updateShow,
+  updateActivePerformance
 };

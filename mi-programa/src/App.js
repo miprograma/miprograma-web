@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
-import { NavBar, Icon } from "antd-mobile";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { NavBar } from "antd-mobile";
+import { Switch, Route } from "react-router-dom";
 import Board from "./components/Board";
 import CreateShows from "./components/CreateShows";
 import CreateArtist from "./components/artist/CreateArtist"

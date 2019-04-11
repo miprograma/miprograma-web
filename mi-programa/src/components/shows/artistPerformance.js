@@ -1,7 +1,6 @@
 import React from "react";
 import Calendar from "../calendar/calendar";
 import Form from "react-bootstrap/Form";
-import ShowBlock from './ShowBlock';
 
 const ArtistPerformance = props => {
 
