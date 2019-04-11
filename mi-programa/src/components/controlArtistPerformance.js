@@ -6,20 +6,59 @@ import CardShowItem from "./shows/CardShowItem"
 
 export default class ControlArtistPerformance extends Component {
   state = {
+    artistList: [],
+    performanceList: [],
     show: {},
-    performance: []
+    performance: [],
+    newShow: {}
   };
 
-  
   componentDidMount() {
-    this.fetchActivePerformance();
+    this.fetchArtistsList();
+    this.fetchPerformanceList();
+    this.fetchShow();
   }
 
-  fetchActivePerformance = () => {
-    miPrograma.getActivePerformance().then(data => {
-      this.setState({ show: data });
+  fetchArtistsList = () => {
+    miPrograma.getArtistsList().then(artist => {
+      this.setState({ artistList: artist });
     });
   };
+
+  fetchPerformanceList = () => {
+    miPrograma.getPerformanceList().then(performance => {
+      this.setState({ performanceList: performance });
+    });
+  };
+
+  fetchShow = () => {
+    miPrograma.getShow('2019-04-08').then(show => {
+      this.setState({showId: show.id});
+      let blocks = [];
+      if (show.sessions){
+        for (let i in show.sessions){
+          blocks.push({artist:show.sessions[i].artist.id, performance:show.sessions[i].performance.id });
+        }
+      } 
+      let loadedShow = {
+        date: '2019-04-08',
+        session: 0,
+        showBlockList: blocks
+      }
+      this.setState({ newShow: loadedShow });
+    });
+  };
+
+
+  // componentDidMount() {
+  //   this.fetchActivePerformance();
+  // }
+
+  // fetchActivePerformance = () => {
+  //   miPrograma.getActivePerformance().then(data => {
+  //     this.setState({ show: data });
+  //   });
+  // };
 
   handleChange = e => {
     console.log(e.target.value);
@@ -29,8 +68,7 @@ export default class ControlArtistPerformance extends Component {
   render() {
 
 
-    const  sessions = this.state.show;
-    console.log(sessions,'sessions de controlArtist...')
+    const  sessions = this.state.newShow;
 
     if (!sessions || (sessions && sessions === [])) {
       return (
@@ -40,11 +78,11 @@ export default class ControlArtistPerformance extends Component {
         </React.Fragment>
       );
     }
-
+    const  artists = this.state.artistList;
+    const  performances = this.state.performanceList;
     const  show  = this.state;
-    console.log(show, 'show control...')
       return (
-          <CardShowItem show={show} />
+          <CardShowItem show={show} artists={artists} performances={performances}/>
       );
     }
   }

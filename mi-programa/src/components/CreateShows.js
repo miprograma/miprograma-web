@@ -34,6 +34,7 @@ export default class CreateShows extends Component {
   fetchArtistsList = () => {
     miPrograma.getArtistsList().then(artist => {
       this.setState({ artistList: artist });
+      console.log(artist, 'artist List')
     });
   };
 
