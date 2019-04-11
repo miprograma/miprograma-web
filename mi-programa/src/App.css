@@ -61,6 +61,8 @@ body{
   margin: 20px;
   width: 50%
 }
-
+.btn-success{
+  margin: 0px 100px 15px;
+}
 
 /* color corporativo Cardamomo: #ED3833 */

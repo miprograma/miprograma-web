@@ -3,6 +3,12 @@ import http from "./BaseServices";
 const getActivePerformance = (date = new Date()) =>
   http.get('/shows', { params: { date: '2019-04-08' }}).then(response => response.data);
 
+const getShow = date =>
+  http.get('/shows', { params: { date: date }}).then(response => response.data);
+
+const updateShow = (showId, sessionId, blockList) =>
+  http.put('/shows/'+showId+'/sessions/'+sessionId, blockList).then(response => response.data);
+
 
 const getArtistsList = () =>
   http.get("/artists").then(response => response.data);
@@ -33,10 +39,6 @@ const updatePerformance = id => {
   http.delete("/shows", id);
 }; //<-- ¿Será id lo que le pase?
 
-const updateShow = id => {
-  http.put("/shows", id);
-}; //<-- ¿Será id lo que le pase?
-
 const createShow = show => {
   http.post("/shows", show);
 }; //<-- ¿Será Show lo que le pase?
@@ -54,7 +56,6 @@ export default {
   getPerformanceList,
   createShow,
   deleteShow,
-  updateShow,
   getArtistsList,
   getShowsList,
   createArtist,
@@ -62,5 +63,7 @@ export default {
   updateArtist,
   createPerformance,
   deletePerformance,
-  updatePerformance
+  updatePerformance,
+  getShow,
+  updateShow
 };

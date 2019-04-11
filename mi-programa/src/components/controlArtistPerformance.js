@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import miPrograma from "../services/MiPrograma";
 import "bootstrap/dist/css/bootstrap.css";
 import { Icon } from "antd-mobile";
+import CardShowItem from "./shows/CardShowItem"
 
 export default class ControlArtistPerformance extends Component {
   state = {
@@ -9,6 +10,7 @@ export default class ControlArtistPerformance extends Component {
     performance: []
   };
 
+  
   componentDidMount() {
     this.fetchActivePerformance();
   }
@@ -27,9 +29,10 @@ export default class ControlArtistPerformance extends Component {
   render() {
 
 
-    const show = this.state.show.sessions;
+    const  sessions = this.state.show;
+    console.log(sessions,'sessions de controlArtist...')
 
-    if (!show || (show && show === [])) {
+    if (!sessions || (sessions && sessions === [])) {
       return (
         <React.Fragment>
           <Icon type="loading" style={{ color: "black" }} />
@@ -38,29 +41,10 @@ export default class ControlArtistPerformance extends Component {
       );
     }
 
+    const  show  = this.state;
+    console.log(show, 'show control...')
       return (
-        <React.Fragment>
-        <div className="box-controller">Sesión {this.state.show.sessions.length}</div>
-        <div className="box-controller">
-          <div className="input-group">
-            <div className="input-group-prepend">
-              <div className="input-group-text">
-                <input
-                  type="checkbox"
-                  aria-label="Radio button for following text input"
-                />
-              </div>
-            </div>
-            <div
-              type="text"
-              className="form-control"
-              aria-label="Text input with radio button"
-            >
-              {(this.state.show.current)? this.state.show.current.artist.name + " " + this.state.show.current.performance.title: console.log('nada') }
-            </div>
-          </div>
-        </div>
-        </React.Fragment>
+          <CardShowItem show={show} />
       );
     }
   }
