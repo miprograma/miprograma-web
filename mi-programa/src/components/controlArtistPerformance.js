@@ -1,133 +1,94 @@
 import React, { Component } from "react";
 import miPrograma from "../services/MiPrograma";
-import "bootstrap/dist/css/bootstrap.css";
 import { Icon } from "antd-mobile";
 import CardShowItem from "./shows/CardShowItem"
+import Calendar from "react-calendar";
+
+const getToday = () => {
+  const today = new Date();
+  today.setHours(2,0,0,0);
+
+  return today;
+}
 
 export default class ControlArtistPerformance extends Component {
   state = {
-    artistList: [],
-    performanceList: [],
-    show: {},
-    performance: [],
-    newShow: {}
-  };
+    shows: [],
+    date: getToday(),
+    loading: true
+  }
+
+  fethShows = () => {
+    miPrograma.getAllShows({ date: this.state.date })
+      .then(shows => this.setState({ shows: shows, loading: false }))
+  }
 
   componentDidMount() {
-    this.fetchArtistsList();
-    this.fetchPerformanceList();
-    this.fetchShow();
+    this.fethShows();
   }
 
-  fetchArtistsList = () => {
-    miPrograma.getArtistsList().then(artist => {
-      this.setState({ artistList: artist });
-    });
-  };
+  handleChangeCurrent = (showId, artist, performance) => {
+    const data = {
+      id: showId,
+      current: { artist, performance }
+    }
 
-  fetchPerformanceList = () => {
-    miPrograma.getPerformanceList().then(performance => {
-      this.setState({ performanceList: performance });
-    });
-  };
+    miPrograma.updateShow(data)
+      .then(() => this.fethShows())
+  }
 
-  fetchShow = () => {
-    miPrograma.getShow('2019-04-08').then(show => {
-      this.setState({showId: show.id});
-      let blocks = [];
-      if (show.sessions){
-        for (let i in show.sessions){
-          blocks.push({artist:show.sessions[i].artist.id, performance:show.sessions[i].performance.id });
-        }
-      } 
-      let loadedShow = {
-        date: '2019-04-08',
-        session: 0,
-        showBlockList: blocks
-      }
-      this.setState({ newShow: loadedShow });
-    });
-  };
+  isActive = (show, session) => {
+    return show.current && show.current.artist.id === session.artist.id &&
+      show.current.performance.id === session.performance.id
+  }
 
+  changeDate = (date) => {
+    this.setState({ date }, () => {
+      this.fethShows()
+    })
+  }
 
-  // componentDidMount() {
-  //   this.fetchActivePerformance();
-  // }
-
-  // fetchActivePerformance = () => {
-  //   miPrograma.getActivePerformance().then(data => {
-  //     this.setState({ show: data });
-  //   });
-  // };
-
-  handleChange = e => {
-    console.log(e.target.value);
-  };
-
+  makeActive = (show) => {
+    miPrograma.setActive(show)
+      .then(() => {
+        this.fethShows()
+      })
+  }
 
   render() {
+    const { shows, loading } = this.state;
+    if (loading)return <p>Cargando...</p>
+    return (
+      <div>
 
+        <Calendar value={this.state.date} onChange={this.changeDate}/>
 
-    const  sessions = this.state.newShow;
+        {this.state.shows.map(show => (
+          <div key={show.id}>
+            <h1>{show.title}</h1>
+            
+            {!show.active && (
+              <button onClick={() => this.makeActive(show)}>Show activo</button>
+            )}
 
-    if (!sessions || (sessions && sessions === [])) {
-      return (
-        <React.Fragment>
-          <Icon type="loading" style={{ color: "black" }} />
-          <div> Loading...</div>
-        </React.Fragment>
-      );
-    }
-    const  artists = this.state.artistList;
-    const  performances = this.state.performanceList;
-    const  show  = this.state;
-      return (
-          <CardShowItem show={show} artists={artists} performances={performances}/>
-      );
-    }
+            blocks:
+
+            <ul>
+              {show.sessions.map((s, i) => (
+                <li key={i}>
+                  {s.artist.name}, {s.performance.title}
+                  {!this.isActive(show, s) && (
+                    <button
+                      onClick={() => this.handleChangeCurrent(show.id, s.artist.id, s.performance.id)}>
+                      Active
+                    </button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    )
   }
-
-  //-------------------NOTAS PARA Mí (RECORDAR ELIMIRALAS)
-// state = {
-//   date: new Date(),
-//   show: {}
-// };
-
-// onChange = date => {
-//   this.setState({ date }, () => this.setPerformance());
-
-// }
-
-// componentDidMount() {
-//   this.setPerformance();
-// }
-
-// setPerformance = () => {
-//   miPrograma.getActivePerformance(this.state.date)
-//     .then(show => this.setState({ show }))
-// }
-
-  //  onChange={this.handleChange}
-
-  // handleChange(event){
-  //   console.log('hola')
-  // }
-
-  // <form onSubmit={handleSubmit}>
-  // <Item></Item>
-  // <Button type="submit"></Button>
-  // </form>
-
-  // if (!this.state.show.sessions) {
-  //   //loader
-  // } else {
-  //   return { this.state.sessions.map(session => <SessionItem session={session}
-  // onChange={this.handleChange}
-  //     (
-  //     cada sesion <div>{session.name}</div>
-  //   ))
-  // }
-
-  // sessionItem = () => (return { this.state.sessions.map(session => (
-  //   cada sesion <div>{this.props.session.name}</div>
-  // )))
+}

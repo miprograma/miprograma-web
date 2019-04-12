@@ -3,7 +3,6 @@ import Form  from "react-bootstrap/Form";
 import { Icon } from "antd-mobile";
 
 const ShowBlock = props => {
-  const index = props.index;
   const artists = props.artists;
   const performances = props.performances;
   let selectedArtist = props.artist;

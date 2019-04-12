@@ -17,6 +17,7 @@ import Row from "react-bootstrap/Row";
   const artistList = show.artistList;
   const performanceList = show.performanceList;
   const arrayArtistPerformance = [...artistList, ...performanceList];
+  console.log(artistList,'artistList');
   
 
   if (!show || (show && show.length === 0))
@@ -28,17 +29,35 @@ import Row from "react-bootstrap/Row";
       </React.Fragment>
     );
 
+    const handleChange = (event) => {
+      this.setState({activePerformance: true})
+      console.log(this.state, 'state')
+    }
+
+    const finalArr = [];
+    if(artistList.length !== 0 && performanceList.length !== 0){
+    for (let i = 0; i < artistList.length; i++) {
+      finalArr.push(
+      [artistList[i].name,
+      " ",
+      performanceList[i].title]
+      )
+      console.log(finalArr, 'finalArr')
+    }
+  }
+    
+
   return (
     <React.Fragment>
       <div className="box-controller">{show.length} Sesiones</div>
-      {arrayArtistPerformance.map((session, index) => (
-      <div>
+      {finalArr.map((session, index) => (
+      <div key={index}>
         <span>Sesión </span>
         <div className="input-group">
           <fieldset>
             <Form.Group as={Row}>
               <Col>
-                <Form.Check type="radio" name="formHorizontalRadios" />
+                <Form.Check type="radio" name="formHorizontalRadios" onChange={handleChange}/>
               </Col>
             </Form.Group>
           </fieldset>
@@ -48,8 +67,7 @@ import Row from "react-bootstrap/Row";
             className="form-control"
             aria-label="Text input with radio button"
           >
-            { [session.name, session.title]}
-            {console.log(session, 'session')}
+            { session }
           </div>
         </div>
       </div>
@@ -60,7 +78,3 @@ import Row from "react-bootstrap/Row";
   }
 
 export default CardShowItem;
-
-
-      {/* {show.map((session, index) => ( */}
-      {/* ))} */}

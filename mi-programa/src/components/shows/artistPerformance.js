@@ -3,11 +3,19 @@ import Calendar from "../calendar/calendar";
 import Form from "react-bootstrap/Form";
 
 const ArtistPerformance = props => {
+  let date = new Date()
+
+  
+
+  const handleChange = (event) => {
+    let selectedArtist = event.currentTarget.value;
+    console.log(selectedArtist)
+  }
 
   return (
     <React.Fragment>
       <div className="calend-session">
-        <Calendar />
+        <Calendar value={date} onChange={handleChange}/>
         <Form.Group controlId="exampleForm.ControlSelect1">
           <Form.Label>Sesión</Form.Label>
           <Form.Control as="select">

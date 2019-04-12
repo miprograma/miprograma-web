@@ -24,6 +24,11 @@ const ActivePerformance = props => {
 
   const show = props.show
 
+  const active = show.sessions.find(block => {
+    return show.current.artist === block.artist.id &&
+      show.current.performance === block.performance.id
+  })
+
   if (!show || (show && show.sessions === 0)) {
     return (
       <React.Fragment >
@@ -51,7 +56,7 @@ const ActivePerformance = props => {
             extra={<span>Programa de Hoy</span>}
           />
           <Card.Body>
-            <div style={{ fontSize: 30 }}>{show.current.performance.title}</div>
+            <div style={{ fontSize: 30 }}>{active.artist.name}</div>
           </Card.Body>
           <Card.Footer
             content={"Artista especial"}
@@ -70,12 +75,12 @@ const ActivePerformance = props => {
               justifyContent: "center",
               height: "250px",
               color: "white",
-              fontSize: 40,
+              fontSize: 35,
               fontWeight: "bold",
-              backgroundImage: `url(${show.current.artist.imageUrl})`
+              backgroundImage: `url(${active.artist.imageUrl})`
             }}
           >
-            {show.current.artist.name}
+            {active.artist.name}
           </div>
           <div
             style={{
@@ -86,7 +91,7 @@ const ActivePerformance = props => {
               backgroundColor: "#fff"
             }}
           >
-            {show.current.performance.description}
+            {active.performance.description}
           </div>
           <div
             style={{
@@ -97,7 +102,7 @@ const ActivePerformance = props => {
               backgroundColor: "#fff"
             }}
           >
-            {show.current.artist.description}
+            {active.artist.description}
           </div>
         </Tabs>
       </StickyContainer>

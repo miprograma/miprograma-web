@@ -4,125 +4,128 @@ import miPrograma from "../services/MiPrograma";
 import ShowBlock from './shows/ShowBlock'
 import Button  from "react-bootstrap/Button";
 import { Icon } from "antd-mobile";
+import Calendar from "react-calendar";
 
 export default class CreateShows extends Component {
-  constructor(props){
-    super(props);
-
-    this.state = {
-      showId: '',
-      artistList: [],
-      performanceList: [],
-      sessionsList: [],
-      newShow: {
-        date: '',
-        session: 0,
-        showBlockList: []
-      }
-    };
-
-    this.newBlock = this.newBlock.bind(this);
-    this.updateSessionState = this.updateSessionState.bind(this);
+  state = {
+    artists: [],
+    performances: [],
+    selectedArtist: '',
+    selectedPerformance: '',
+    show: {
+      title: '',
+      order: 0,
+      date: new Date(),
+      sessions: []
+    }
   }
-  
+
+  fetchArtists = () => {
+    miPrograma.getArtistsList()
+      .then(artists => this.setState({ artists }))
+  }
+
+  fetchPerformances = () => {
+    miPrograma.getPerformanceList()
+      .then(performances => this.setState({ performances }))
+  }
+
   componentDidMount() {
-    this.fetchArtistsList();
-    this.fetchPerformanceList();
-    this.fetchShow();
+    this.fetchPerformances()
+    this.fetchArtists()
   }
 
-  fetchArtistsList = () => {
-    miPrograma.getArtistsList().then(artist => {
-      this.setState({ artistList: artist });
-      console.log(artist, 'artist List')
-    });
-  };
-
-  fetchPerformanceList = () => {
-    miPrograma.getPerformanceList().then(performance => {
-      this.setState({ performanceList: performance });
-    });
-  };
-
-  fetchShow = () => {
-    miPrograma.getShow('2019-04-08').then(show => {
-      this.setState({showId: show.id});
-      let blocks = [];
-      if (show.sessions){
-        for (let i in show.sessions){
-          blocks.push({artist:show.sessions[i].artist.id, performance:show.sessions[i].performance.id });
-        }
-      } 
-      let loadedShow = {
-        date: '2019-04-08',
-        session: 0,
-        showBlockList: blocks
+  handleChange = (e) => {
+    this.setState({
+      show: {
+        ...this.state.show,
+        [e.target.name]: e.target.value
       }
-      this.setState({ newShow: loadedShow });
-    });
-  };
-
-  updateShowApi = () => {
-    const showId = this.state.showId;
-    const sessionId = '0';
-    const blockList = this.state.newShow;
-
-    miPrograma.updateShow(showId, sessionId, blockList).then(show => {
-      console.log(show);
-    });
-  };
-
-  newBlock () { 
-    const previousArray = this.state.newShow;
-    previousArray.showBlockList.push({artist:'',performance:''});
-    this.setState({newShow: previousArray});
+    })
   }
 
-  updateSessionState(session, newState){
-    const previousArray = this.state.newShow;
-    previousArray.showBlockList[session] = newState;
-    this.setState({newShow: previousArray});
+  handleAddBlock = () => {
+    const blocks = this.state.show.sessions;
 
-    this.updateShowApi();
+    const newBlocks = [
+      ...blocks,
+      {
+        artist: this.state.selectedArtist,
+        performance: this.state.selectedPerformance,
+      }
+    ]
+
+    this.setState({
+      show: {
+        ...this.state.show,
+        sessions: newBlocks
+      }
+    })
   }
-  
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+
+    miPrograma.createShow(this.state.show)
+      .then(
+        () => alert("show creado"),
+        console.error
+      )
+  }
+
   render() {
-    const { artistList } = this.state;
-    const { performanceList } = this.state;
-    const {newShow} = this.state;
+    const show = this.state.show;
 
-    if (!newShow.showBlockList)
     return (
-      <React.Fragment>
-        <Icon type="loading" style={{ color: "black" }} />
-        <div> Loading...</div>
-      </React.Fragment>
-    );
+      <form onSubmit={this.handleSubmit}>
+        <Calendar value={show.date} onChange={(d) => { this.handleChange({ target: { name: 'date', value: d }})}}/>
 
-    console.log(newShow);
-    
-    return (
-      <div>
-        <ArtistPerformance
-          artists={artistList}
-          performances={performanceList}
-        />
+        <div>
+          Title:
+          <input type="text" value={show.title} name="title" onChange={this.handleChange}/>
+        </div>
 
-        { newShow.showBlockList.map( (show, index) => { 
-          //console.log(show);
-          return (
-        <ShowBlock key={index}
-          artists={artistList}
-          performances={performanceList}
-          artist={show.artist}
-          performance={show.performance}
-          index={index}
-          onChange={this.updateSessionState}
-        />
-        )})}
-        <Button onClick={this.newBlock} variant="success">Nuevo bloque</Button>
-      </div>
-    );
+        <div>
+          Order:
+          <input type="number" value={show.order} name="order" onChange={this.handleChange}/>
+        </div>
+
+        <div>
+          Artist:
+          <select onChange={(e) => { this.setState({ selectedArtist: e.target.value }) }}>
+            <option value={null}></option>
+            {this.state.artists.map((a, i) => (
+              <option value={a.id} key={i}>{a.name}</option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          Performance:
+          <select onChange={(e) => { this.setState({ selectedPerformance: e.target.value }) }}>
+            <option value={null}></option>
+            {this.state.performances.map((p, i) => (
+              <option value={p.id} key={i}>{p.title}</option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <button type="button" onClick={this.handleAddBlock}>Add block</button>
+        </div>
+
+        <ul>
+          {show.sessions.map((s, i) => (
+            <li key={i}>
+              {this.state.artists.find(a => a.id === s.artist).name},
+              {this.state.performances.find(a => a.id === s.performance).title}
+            </li>
+          ))}
+        </ul>
+
+        <button type="submit">Crear</button>
+      </form>
+    )
   }
 }
 

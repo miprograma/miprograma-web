@@ -11,22 +11,24 @@ export default class Board extends Component {
   
 
   componentDidMount() {
-    this.fetchActivePerformance();
+    this.fetchShow();
   }
 
-  fetchActivePerformance = () => {
-    miPrograma.getActivePerformance()
+  fetchShow = () => {
+    miPrograma.getActive()
       .then(data => {
         this.setState({ show: data })
       })
   }
 
   render() {
+    //setInterval(this.fetchShow(), 2000)
     const { show } = this.state;
     return (
       <div className = "Board">
-        <ActivePerformance show={show} />
+        {show && show.current && <ActivePerformance show={show} />}
       </div>
     )
   }
 }
+
