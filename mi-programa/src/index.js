@@ -5,13 +5,13 @@ import 'antd-mobile/dist/antd-mobile.css';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 
 ReactDOM.render(
-  <BrowserRouter basename={process.env.PUBLIC_URL}>
+  <HashRouter basename={process.env.PUBLIC_URL}>
     <App />
-  </BrowserRouter>, document.getElementById('root'));
+  </HashRouter>, document.getElementById('root'));
 
 
 serviceWorker.unregister();
