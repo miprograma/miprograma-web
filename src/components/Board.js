@@ -11,7 +11,9 @@ export default class Board extends Component {
   
 
   componentDidMount() {
-    this.fetchShow();
+    setInterval(() => {
+      this.fetchShow()
+    }, 5000)
   }
 
   fetchShow = () => {
@@ -22,7 +24,6 @@ export default class Board extends Component {
   }
 
   render() {
-    //setInterval(this.fetchShow(), 2000)
     const { show } = this.state;
     return (
       <div className = "Board">
