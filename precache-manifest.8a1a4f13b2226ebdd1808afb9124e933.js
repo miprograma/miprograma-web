@@ -8,15 +8,15 @@ self.__precacheManifest = [
     "url": "/miprograma-web/static/js/runtime~main.e5aa9649.js"
   },
   {
-    "revision": "1996d6d2fbd83781bf5a",
-    "url": "/miprograma-web/static/js/main.81655be8.chunk.js"
+    "revision": "71fc25e8cdd1211fda75",
+    "url": "/miprograma-web/static/js/main.d4c4756c.chunk.js"
   },
   {
     "revision": "6ab203009bce1f1c2342",
     "url": "/miprograma-web/static/js/2.0d13dbdd.chunk.js"
   },
   {
-    "revision": "1996d6d2fbd83781bf5a",
+    "revision": "71fc25e8cdd1211fda75",
     "url": "/miprograma-web/static/css/main.378f3f3d.chunk.css"
   },
   {
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/miprograma-web/static/css/2.50e0dc8a.chunk.css"
   },
   {
-    "revision": "4dd255bc9df4904eb663d661d20e6d52",
+    "revision": "c49b3d8e6a4324399446408e0fa62a17",
     "url": "/miprograma-web/index.html"
   }
 ];
