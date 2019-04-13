@@ -59,7 +59,7 @@ const ActivePerformance = props => {
             <div style={{ fontSize: 30 }}>{active.artist.name}</div>
           </Card.Body>
           <Card.Footer
-            content={"Artista especial"}
+            content={"Número: " + active.performance.title}
           />
         </Card>
         <WhiteSpace size="lg" />
@@ -88,7 +88,8 @@ const ActivePerformance = props => {
               alignItems: "center",
               justifyContent: "center",
               height: "250px",
-              backgroundColor: "#fff"
+              backgroundColor: "#fff",
+              padding: "20px"
             }}
           >
             {active.performance.description}
@@ -99,7 +100,8 @@ const ActivePerformance = props => {
               alignItems: "center",
               justifyContent: "center",
               height: "250px",
-              backgroundColor: "#fff"
+              backgroundColor: "#fff",
+              padding: "20px"
             }}
           >
             {active.artist.description}
