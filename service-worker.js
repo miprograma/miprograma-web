@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/miprograma-web/precache-manifest.8a1a4f13b2226ebdd1808afb9124e933.js"
+  "https://miprograma.github.io/miprograma-web/precache-manifest.af54faf5c850dcd995c4fd51124607c5.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/miprograma-web/index.html", {
+workbox.routing.registerNavigationRoute("https://miprograma.github.io/miprograma-web/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
